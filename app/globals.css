@@ -349,31 +349,31 @@
 /* Field labels: WHO'S TRAVELLING?, DESTINATION, DATES etc.
    Tailwind: text-xs font-medium uppercase tracking-wide        */
 .font-medium.uppercase.tracking-wide {
-     font-size: 12.5px;
-     font-weight: 600;
-     letter-spacing: 0.09em;
+     font-size: 12.5px !important;
+     font-weight: 600 !important;
+     letter-spacing: 0.09em !important;
 }
 
 /* Step navigation tabs: 01 — The trip, 02 — Your preferences  */
 .font-medium.truncate {
-     font-size: 13.5px;
+     font-size: 13.5px !important;
 }
 
 /* Section eyebrow prefix above h1: 01 — THE TRIP             */
 .font-medium.uppercase {
-     font-size: 12.5px;
-     font-weight: 600;
+     font-size: 12.5px !important;
+     font-weight: 600 !important;
 }
 
 /* Toggle chips: I know where, Suggest one, Exact dates etc.   */
 .rounded-full.font-medium,
 .rounded-full .font-medium {
-     font-size: 13px;
-     font-weight: 500;
+     font-size: 13px !important;
+     font-weight: 500 !important;
 }
 
 /* All remaining text-xs instances (add/link buttons etc.)     */
 .text-xs.font-medium {
-     font-size: 13px;
+     font-size: 13px !important;
 }
 .byc-reveal--delay-3 { transition-delay: 0.35s; }
