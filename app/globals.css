@@ -1,26 +1,342 @@
+@import './styles/tokens.css';
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   BYCo Foundations — extracted via Figma MCP, 2026-04-28
+   Primary: #2d39f7 (confirmed)  Font: SegmentAlt → Inter (see BRAND_DEVIATIONS.md)
+   Scale: 4px grid, 1:1px ratio  Source: Foundations BYCo (Figma)
+   ============================================================ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* shadcn compat — maps to :root vars below */
+  --color-background:          var(--background);
+  --color-foreground:          var(--foreground);
+  --color-card:                var(--card);
+  --color-card-foreground:     var(--card-foreground);
+  --color-popover:             var(--popover);
+  --color-popover-foreground:  var(--popover-foreground);
+  --color-primary:             var(--primary);
+  --color-primary-foreground:  var(--primary-foreground);
+  --color-secondary:           var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:               var(--muted);
+  --color-muted-foreground:    var(--muted-foreground);
+  --color-accent:              var(--accent);
+  --color-accent-foreground:   var(--accent-foreground);
+  --color-destructive:         var(--destructive);
+  --color-border:              var(--border);
+  --color-input:               var(--input);
+  --color-ring:                var(--ring);
+
+  /* BYCo surface utilities */
+  --color-surface-base:        var(--surface-base);
+  --color-surface-elevated:    var(--surface-elevated);
+  --color-surface-secondary:   var(--surface-secondary);
+  --color-surface-action:      var(--surface-action);
+  --color-surface-action-hover: var(--surface-action-hover);
+  --color-surface-black:       var(--surface-black);
+  --color-surface-disabled:    var(--surface-disabled);
+  --color-surface-error:       var(--surface-error);
+  --color-surface-warning:     var(--surface-warning);
+  --color-surface-success:     var(--surface-success);
+  --color-surface-info:        var(--surface-info);
+
+  /* BYCo text utilities */
+  --color-text-primary:        var(--text-primary);
+  --color-text-header:         var(--text-header);
+  --color-text-secondary:      var(--text-secondary);
+  --color-text-muted:          var(--text-muted);
+  --color-text-accent:         var(--text-accent);
+  --color-text-action:         var(--text-action);
+  --color-text-on-action:      var(--text-on-action);
+  --color-text-inverse:        var(--text-inverse);
+  --color-text-disabled:       var(--text-disabled);
+  --color-text-error:          var(--text-error);
+  --color-text-warning:        var(--text-warning);
+  --color-text-success:        var(--text-success);
+
+  /* BYCo border utilities */
+  --color-border-default:      var(--border-default);
+  --color-border-subtle:       var(--border-subtle);
+  --color-border-strong:       var(--border-strong);
+  --color-border-action:       var(--border-action);
+  --color-border-error:        var(--border-error);
+  --color-border-success:      var(--border-success);
+  --color-border-warning:      var(--border-warning);
+
+  /* BYCo keyline utilities */
+  --color-keyline-dark:        var(--keyline-dark);
+  --color-keyline-light:       var(--keyline-light);
+
+  /* BYCo state utilities */
+  --color-accent-primary:      var(--accent-primary);
+  --color-state-error:         var(--state-error);
+  --color-state-warning:       var(--state-warning);
+  --color-state-success:       var(--state-success);
+
+  /* Radii */
+  --radius-none: 0px;
+  --radius-sm:   calc(var(--radius) * 0.5);
+  --radius-md:   var(--radius);
+  --radius-lg:   calc(var(--radius) * 2);
+  --radius-xl:   calc(var(--radius) * 3);
+  --radius-2xl:  calc(var(--radius) * 5);
+  --radius-3xl:  calc(var(--radius) * 7);
+  --radius-full: 9999px;
+
+  /* Fonts */
+  --font-sans:    var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-display: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --font-mono:    var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* -------- Primitives -------- */
+  --byco-blue-50:  #eef0ff;
+  --byco-blue-100: #dce0ff;
+  --byco-blue-500: #2d39f7;   /* Primary/500 — confirmed from Figma */
+  --byco-blue-600: #1f2ad9;   /* Action hover — derived */
+  --byco-blue-700: #1620b5;   /* Action pressed — derived */
+
+  --byco-black:   #0a0a0a;
+  --byco-white:   #ffffff;
+  --byco-grey-50:  #f8f8f8;
+  --byco-grey-100: #f0f0f0;
+  --byco-grey-200: #e5e5e5;
+  --byco-grey-300: #d0d0d0;
+  --byco-grey-400: #a3a3a3;
+  --byco-grey-500: #737373;
+  --byco-grey-700: #404040;
+  --byco-grey-900: #1a1a1a;
+
+  --byco-error:   #dc2626;
+  --byco-warning: #d97706;
+  --byco-success: #16a34a;
+
+  /* -------- Surfaces / Background (Mapped) -------- */
+  --surface-base:         var(--byco-white);
+  --surface-elevated:     var(--byco-grey-50);
+  --surface-secondary:    var(--byco-grey-100);
+  --surface-action:       var(--byco-blue-500);
+  --surface-action-hover: var(--byco-blue-600);
+  --surface-black:        var(--byco-black);
+  --surface-disabled:     var(--byco-grey-100);
+  --surface-error:        #fef2f2;
+  --surface-warning:      #fffbeb;
+  --surface-success:      #f0fdf4;
+  --surface-info:         #eff1ff;
+
+  /* -------- Text (Mapped) -------- */
+  --text-primary:         var(--byco-grey-900);
+  --text-header:          var(--byco-black);
+  --text-secondary:       var(--byco-grey-500);
+  --text-muted:           var(--byco-grey-400);
+  --text-accent:          var(--byco-blue-500);
+  --text-action:          var(--byco-blue-500);
+  --text-action-hover:    var(--byco-blue-600);
+  --text-on-action:       var(--byco-white);
+  --text-inverse:         rgba(255, 255, 255, 0.85);
+  --text-body-inverse:    rgba(255, 255, 255, 0.7);  /* confirmed from Figma */
+  --text-disabled:        var(--byco-grey-400);
+  --text-error:           var(--byco-error);
+  --text-warning:         var(--byco-warning);
+  --text-success:         var(--byco-success);
+
+  /* -------- Borders (Mapped) -------- */
+  --border-default:       var(--byco-grey-200);
+  --border-subtle:        var(--byco-grey-100);
+  --border-strong:        var(--byco-grey-300);
+  --border-action:        var(--byco-blue-500);
+  --border-action-hover:  var(--byco-blue-600);
+  --border-disabled:      var(--byco-grey-200);
+  --border-error:         var(--byco-error);
+  --border-success:       var(--byco-success);
+  --border-warning:       var(--byco-warning);
+
+  /* -------- Keylines (Mapped) -------- */
+  --keyline-dark:         rgba(0, 0, 0, 0.1);
+  --keyline-light:        rgba(255, 255, 255, 0.5);  /* confirmed from Figma */
+
+  /* -------- State -------- */
+  --accent-primary:       var(--byco-blue-500);
+  --state-error:          var(--byco-error);
+  --state-warning:        var(--byco-warning);
+  --state-success:        var(--byco-success);
+
+  /* -------- Typography -------- */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.875rem;   /* 14px */
+  --text-base:  1rem;       /* 16px — body */
+  --text-md:    1.125rem;   /* 18px */
+  --text-lg:    1.25rem;    /* 20px */
+  --text-xl:    1.5rem;     /* 24px */
+  --text-2xl:   1.75rem;    /* 28px */
+  --text-3xl:   2rem;       /* 32px */
+  --text-4xl:   2.5rem;     /* 40px */
+  --text-5xl:   3rem;       /* 48px */
+  --text-6xl:   4rem;       /* 64px */
+  --text-7xl:   5.25rem;    /* 84px — BYCo Scale/84 */
+
+  --leading-tight:    1.1;
+  --leading-snug:     1.25;
+  --leading-normal:   1.5;
+  --leading-relaxed:  1.65;
+
+  --tracking-tight:   -0.02em;  /* BYCo Scale/-2 on headers */
+  --tracking-normal:  0em;
+  --tracking-wide:    0.04em;
+
+  /* -------- Radius — BYCo is minimal, almost flat -------- */
+  --radius: 0.25rem;   /* 4px base */
+
+  /* -------- Motion -------- */
+  --duration-fast:     100ms;
+  --duration-base:     200ms;
+  --duration-slow:     350ms;
+  --easing-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+
+  /* -------- shadcn variable overrides → BYCo tokens -------- */
+  --background:          var(--byco-white);
+  --foreground:          var(--byco-grey-900);
+  --card:                var(--byco-white);
+  --card-foreground:     var(--byco-grey-900);
+  --popover:             var(--byco-white);
+  --popover-foreground:  var(--byco-grey-900);
+  --primary:             var(--byco-blue-500);
+  --primary-foreground:  var(--byco-white);
+  --secondary:           var(--byco-grey-50);
+  --secondary-foreground: var(--byco-grey-900);
+  --muted:               var(--byco-grey-50);
+  --muted-foreground:    var(--byco-grey-500);
+  --accent:              var(--byco-blue-50);
+  --accent-foreground:   var(--byco-blue-500);
+  --destructive:         var(--byco-error);
+  --border:              var(--byco-grey-200);
+  --input:               var(--byco-grey-200);
+  --ring:                var(--byco-blue-500);
+
+  /* shadcn sidebar — strip unused */
+  --sidebar: var(--byco-grey-50);
+  --sidebar-foreground: var(--byco-grey-900);
+  --sidebar-primary: var(--byco-blue-500);
+  --sidebar-primary-foreground: var(--byco-white);
+  --sidebar-accent: var(--byco-grey-100);
+  --sidebar-accent-foreground: var(--byco-grey-900);
+  --sidebar-border: var(--byco-grey-200);
+  --sidebar-ring: var(--byco-blue-500);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    @apply font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-header);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    font-weight: 700;
+  }
+
+  a {
+    color: var(--text-action);
+    transition: color var(--duration-fast) var(--easing-standard);
+  }
+
+  a:hover {
+    color: var(--text-action-hover);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ── Typography utility classes (match Figma named styles) ── */
+
+.text-display-xl {
+  font-size: var(--text-display-xl);
+  line-height: var(--lh-display-xl);
+  letter-spacing: var(--ls-display-xl);
+  font-weight: 700;
 }
+.text-display-l {
+  font-size: var(--text-display-l);
+  line-height: var(--lh-display-l);
+  letter-spacing: var(--ls-display-l);
+  font-weight: 700;
+}
+.text-display-m {
+  font-size: var(--text-display-m);
+  line-height: var(--lh-display-m);
+  letter-spacing: var(--ls-display-m);
+  font-weight: 700;
+}
+.text-display-s {
+  font-size: var(--text-display-s);
+  line-height: var(--lh-display-s);
+  letter-spacing: var(--ls-display-s);
+  font-weight: 700;
+}
+.text-title-l { font-size: var(--text-title-l); line-height: var(--lh-title-l); letter-spacing: var(--ls-title-l); font-weight: 700; }
+.text-title-m { font-size: var(--text-title-m); line-height: var(--lh-title-m); letter-spacing: var(--ls-title-m); font-weight: 700; }
+.text-title   { font-size: var(--text-title);   line-height: var(--lh-title);   letter-spacing: var(--ls-title);   font-weight: 700; }
+.text-sub-l   { font-size: var(--text-sub-l);   line-height: var(--lh-sub-l);   letter-spacing: var(--ls-sub-l); }
+.text-sub     { font-size: var(--text-sub);     line-height: var(--lh-sub);     letter-spacing: var(--ls-sub); }
+.text-body    { font-size: var(--text-body);    line-height: var(--lh-body); }
+.text-caption { font-size: var(--text-caption); line-height: var(--lh-caption); }
+.text-footnote{ font-size: var(--text-footnote);line-height: var(--lh-footnote); }
+
+/* Weights */
+.fw-regular  { font-weight: 400; }
+.fw-medium   { font-weight: 500; }
+.fw-semibold { font-weight: 600; }
+.fw-bold     { font-weight: 700; }
+
+/* ── BYC Section number prefix ("01", "02"...) ─────────────── */
+.byc-section-number {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* ── Keyline divider ─────────────────────────────────────────*/
+.keyline {
+  height: 1px;
+  background: var(--border-default);
+}
+.keyline--light {
+  background: var(--border-light);
+}
+
+/* ── Scroll reveal (mirrors BYC animation system) ───────────
+   Attach .byc-reveal to any element. JS adds .is-visible.    */
+.byc-reveal {
+  opacity: 0;
+  transform: translateY(var(--motion-slide-offset));
+  transition:
+    opacity var(--motion-reveal),
+    transform var(--motion-reveal);
+}
+.byc-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.byc-reveal--delay-1 { transition-delay: 0.1s; }
+.byc-reveal--delay-2 { transition-delay: 0.2s; }
+.byc-reveal--delay-3 { transition-delay: 0.35s; }

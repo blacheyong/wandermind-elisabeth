@@ -1,0 +1,144 @@
+/* ============================================================
+   WanderMind — Design Tokens
+   Source: Foundations BYCo (Figma) + live CSS extraction from blacheyong.com
+   All values confirmed against the live site CSS (app-86Msxv9T.css)
+   ============================================================ */
+
+/* --- Font faces (SegmentAlt — self-hosted)
+   Place all .otf files in /public/fonts/SegmentAlt/
+   ------------------------------------------------------------ */
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Thin.otf') format('opentype'); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Thin-Italic.otf') format('opentype'); font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-ExtraLight.otf') format('opentype'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-ExtraLight-Italic.otf') format('opentype'); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Light-Italic.otf') format('opentype'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Medium-Italic.otf') format('opentype'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-SemiBold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-SemiBold-Italic.otf') format('opentype'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Bold-Italic.otf') format('opentype'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-ExtraBold.otf') format('opentype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-ExtraBold-Italic.otf') format('opentype'); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Black.otf') format('opentype'); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'SegmentAlt'; src: url('/fonts/SegmentAlt/SegmentAlt-Black-Italic.otf') format('opentype'); font-weight: 900; font-style: italic; font-display: swap; }
+
+:root {
+
+  /* ── TYPOGRAPHY ──────────────────────────────────────────── */
+  --font:          'SegmentAlt', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Type scale — exact Figma values */
+  /* Headlines (tight negative tracking) */
+  --text-display-xl:  120px; --lh-display-xl:  132px; --ls-display-xl:  -2px; /* Bold */
+  --text-display-l:    84px; --lh-display-l:    92px; --ls-display-l:   -2px; /* Bold */
+  --text-display-m:    72px; --lh-display-m:    80px; --ls-display-m:   -1px; /* Bold */
+  --text-display-s:    64px; --lh-display-s:    76px; --ls-display-s:   -1px; /* Bold — live site h1 measured at 64px/-1.92px */
+
+  /* Titles */
+  --text-title-l:      48px; --lh-title-l:      56px; --ls-title-l:     -1px; /* Bold */
+  --text-title-m:      40px; --lh-title-m:      48px; --ls-title-m:     -1px; /* Bold */
+  --text-title:        32px; --lh-title:        36px; --ls-title:       -1px; /* Bold */
+
+  /* Subtitles */
+  --text-sub-l:        24px; --lh-sub-l:        32px; --ls-sub-l:        0px;
+  --text-sub:          20px; --lh-sub:          24px; --ls-sub:           0px;
+
+  /* Body / UI */
+  --text-body:         18px; --lh-body:         22px;
+  --text-caption:      14px; --lh-caption:      18px;
+  --text-footnote:     12px; --lh-footnote:     16px;
+
+  /* ── COLORS (Figma Primitives + Brand/Alias) ─────────────── */
+
+  /* Raw primitives */
+  --black:              #000000;
+  --white:              #ffffff;
+  --grey-200:           #E3E4EA;  /* confirmed in live CSS */
+  --grey-500:           #848A97;
+  --blue-primary:       #2D39F7;  /* Super Blue/500 — BYC action color */
+  --blue-hover:         #1552CB;  /* confirmed in live CSS (background-color:#1552cb) */
+  --blue-deep:          #050D85;  /* Action hover (Figma mapped) */
+  --success:            #03C300;
+  --warning:            #FE8855;
+  --error:              #F84848;
+
+  /* ── SEMANTIC — LIGHT MODE ──────────────────────────────── */
+
+  /* Backgrounds
+     - Page bg: #f4f4f4 (BYC --byc-animate-foreground-color, confirmed live)
+     - Surface (nav, sidebar, cards): #ffffff
+     - Offset surface: #f4f4f4                                 */
+  --surface-page:       #f4f4f4;   /* ← BYC's actual page background */
+  --surface-white:      #ffffff;   /* Nav, sidebar, form cards */
+  --surface-hover:      rgba(0,0,0,0.03);
+  --surface-active:     rgba(45,57,247,0.06);
+
+  /* Borders / Keylines */
+  --border-default:     #E3E4EA;   /* Grey/200 — main dividers */
+  --border-light:       rgba(0,0,0,0.07);  /* Black/7% — subtle borders */
+  --border-medium:      rgba(0,0,0,0.14);  /* Black/14% — chip borders */
+  --border-focus:       #2D39F7;   /* Focus ring */
+
+  /* Text */
+  --text-primary:       #000000;
+  --text-secondary:     rgba(0,0,0,0.55);
+  --text-tertiary:      rgba(0,0,0,0.35);
+  --text-disabled:      #A6A6A6;
+  --text-action:        #2D39F7;
+  --text-placeholder:   rgba(0,0,0,0.28);
+
+  /* ── BORDER RADIUS (Brand/Alias from Figma) ──────────────── */
+  --radius-none:   0px;
+  --radius-xs:     8px;
+  --radius-s:      12px;
+  --radius-m:      16px;   /* ← confirmed: --bycbtn-border-radius: 16px */
+  --radius-l:      20px;
+  --radius-xl:     24px;
+  --radius-xxl:    32px;
+  --radius-full:   9999px;
+
+  /* ── SPACING (4px grid) ──────────────────────────────────── */
+  --sp-1:   4px;   --sp-2:   8px;  --sp-3:  12px;  --sp-4:  16px;
+  --sp-5:  20px;   --sp-6:  24px;  --sp-7:  28px;  --sp-8:  32px;
+  --sp-9:  36px;   --sp-10: 40px;  --sp-11: 44px;  --sp-12: 48px;
+  --sp-14: 56px;   --sp-16: 64px;  --sp-20: 80px;  --sp-24: 92px;
+  --sp-30: 120px;  --sp-33: 132px;
+
+  /* ── MOTION (confirmed from live CSS extraction) ─────────── */
+
+  /* Micro: button hover, chip select, link color changes
+     Source: .btn--arrow transition, link transitions        */
+  --motion-micro:   0.2s ease-in-out;
+
+  /* Standard: most UI state changes, borders, backgrounds
+     Source: --byc-animate-duration + --byc-animate-easing   */
+  --motion-std:     0.35s ease-in-out;
+
+  /* Reveal: panels entering, step transitions
+     Source: --byc-animate-reveal-duration                   */
+  --motion-reveal:  0.4s ease-in-out;
+
+  /* Slide: hero content, large section animations
+     Source: --byc-animate-slide-duration                    */
+  --motion-slide:   0.65s ease-in-out;
+
+  /* Opacity fade (for skeleton → content, etc.)
+     Source: --byc-animate-opacity-duration                  */
+  --motion-fade:    0.35s ease-in-out;
+
+  /* Slide offset (transform translateY for reveals)
+     Source: --byc-animate-slide-offset                      */
+  --motion-slide-offset: 50px;
+
+  /* ── EFFECTS ─────────────────────────────────────────────── */
+  --blur-button:    blur(64px);   /* backdrop-filter on frosted buttons */
+  --blur-tile:      blur(200px);  /* backdrop-filter on tiles */
+
+  /* ── LAYOUT ──────────────────────────────────────────────── */
+  --nav-height:     52px;
+  --sidebar-width:  200px;
+}
