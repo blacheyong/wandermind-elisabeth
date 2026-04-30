@@ -8,13 +8,25 @@ import { usePathname } from "next/navigation";
    Light mode. All values reference tokens.css custom properties.
    ============================================================ */
 
-const NAV = [
+type NavSubItem = { href: string; label: string }
+type NavItem = { href: string; label: string; subItems?: NavSubItem[] }
+type NavSection = { label: string; items: NavItem[] }
+
+const NAV: NavSection[] = [
   {
     label: "Voyage",
     items: [
-      { href: "/onboarding/trip-context", label: "Préférences de voyage" },
-      { href: "/trips",                   label: "Voyages récents" },
-      { href: "/saved",                   label: "Itinéraires sauvegardés" },
+      {
+        href: "/onboarding/constraints",
+        label: "Préférences de voyage",
+        subItems: [
+          { href: "/account/preferences",    label: "Préférences globales" },
+          { href: "/onboarding/review",      label: "Voyage de cet été" },
+          { href: "/trips/work",             label: "Voyage de travail" },
+        ],
+      },
+      { href: "/trips",  label: "Voyages récents" },
+      { href: "/saved",  label: "Itinéraires sauvegardés" },
     ],
   },
   {
@@ -33,114 +45,94 @@ const NAV = [
   },
 ];
 
-/* ── Top navigation ──────────────────────────────────────── */
-function TopNav() {
+/* ── Floating controls (top-right, no bar) ───────────────── */
+function FloatingControls() {
   return (
-    <header style={{
-      height: "var(--nav-height)",
-      background: "var(--surface-white)",
-      borderBottom: "1px solid var(--border-default)",
+    <div style={{
+      position: "fixed",
+      top: "20px",
+      right: "24px",
+      zIndex: 50,
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-between",
-      padding: "0 24px",
-      flexShrink: 0,
-      position: "sticky",
-      top: 0,
-      zIndex: 50,
+      gap: "10px",
     }}>
-
-      {/* Wordmark: "WanderMind" — SegmentAlt Bold, black */}
-      <Link href="/" style={{
+      {/* Language toggle */}
+      <button style={{
         fontFamily: "var(--font)",
-        fontSize: "17px",
-        fontWeight: 700,
-        letterSpacing: "-0.5px",
-        color: "var(--text-primary)",
-        lineHeight: 1,
-        textDecoration: "none",
+        fontSize: "15px",
+        fontWeight: 600,
+        letterSpacing: "0.04em",
+        color: "rgba(255,255,255,0.85)",
+        background: "transparent",
+        border: "1px solid rgba(255,255,255,0.35)",
+        borderRadius: "16px",
+        height: "44px",
+        padding: "0 20px",
+        cursor: "pointer",
+        transition: "border-color var(--motion-micro), color var(--motion-micro)",
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.8)";
+        (e.currentTarget as HTMLElement).style.color = "#ffffff";
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.35)";
+        (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.85)";
       }}>
-        WanderMind
-      </Link>
+        EN
+      </button>
 
-      {/* Right controls */}
-      <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-
-        {/* Language toggle — mirrors BYC's "En" pill */}
-        <button style={{
-          fontFamily: "var(--font)",
-          fontSize: "11px",
-          fontWeight: 600,
-          letterSpacing: "0.05em",
-          color: "var(--text-tertiary)",
-          background: "var(--surface-page)",
-          border: "1px solid var(--border-default)",
-          borderRadius: "var(--radius-full)",
-          padding: "4px 12px",
-          cursor: "pointer",
-          transition: "background var(--motion-micro), color var(--motion-micro)",
-        }}
-        onMouseEnter={e => {
-          (e.currentTarget as HTMLElement).style.background = "var(--border-default)";
-          (e.currentTarget as HTMLElement).style.color = "var(--text-primary)";
-        }}
-        onMouseLeave={e => {
-          (e.currentTarget as HTMLElement).style.background = "var(--surface-page)";
-          (e.currentTarget as HTMLElement).style.color = "var(--text-tertiary)";
-        }}>
-          EN
-        </button>
-
-        {/* Avatar + hamburger pill */}
+      {/* Avatar + hamburger pill */}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        background: "transparent",
+        height: "44px",
+        padding: "0 16px 0 8px",
+        borderRadius: "16px",
+        border: "1px solid rgba(255,255,255,0.35)",
+        cursor: "pointer",
+        transition: "border-color var(--motion-micro)",
+      }}
+      onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.8)"}
+      onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.35)"}>
         <div style={{
+          width: "30px",
+          height: "30px",
+          borderRadius: "50%",
+          background: "#ffffff",
           display: "flex",
           alignItems: "center",
-          gap: "9px",
-          background: "var(--surface-page)",
-          padding: "4px 11px 4px 4px",
-          borderRadius: "var(--radius-full)",
-          border: "1px solid var(--border-default)",
-          cursor: "pointer",
-          transition: "background var(--motion-micro)",
-        }}
-        onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--grey-200)"}
-        onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--surface-page)"}>
-          {/* Avatar — ÉD initials in primary blue */}
-          <div style={{
-            width: "28px",
-            height: "28px",
-            borderRadius: "50%",
-            background: "var(--blue-primary)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: "10px",
-            fontWeight: 700,
-            color: "#fff",
-            letterSpacing: "0.03em",
-          }}>
-            ÉD
-          </div>
-          {/* Hamburger lines */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "3.5px", width: "16px" }}>
-            {[16, 11, 16].map((w, i) => (
-              <div key={i} style={{
-                height: "1.5px",
-                width: `${w}px`,
-                background: "rgba(0,0,0,0.55)",
-                borderRadius: "1px",
-              }} />
-            ))}
-          </div>
+          justifyContent: "center",
+          fontSize: "11px",
+          fontWeight: 700,
+          color: "var(--blue-primary)",
+          letterSpacing: "0.03em",
+          flexShrink: 0,
+        }}>
+          ÉD
+        </div>
+        <div className="menu-lines" style={{ display: "flex", flexDirection: "column", gap: "3.5px", width: "16px" }}>
+          {([["menu-line-1", 16], ["menu-line-2", 11], ["menu-line-3", 16]] as const).map(([cls, w]) => (
+            <div key={cls} className={cls} style={{
+              height: "1.5px",
+              width: `${w}px`,
+              background: "rgba(255,255,255,0.7)",
+              borderRadius: "2px",
+            }} />
+          ))}
         </div>
       </div>
-    </header>
+    </div>
   );
 }
 
 /* ── Sidebar ─────────────────────────────────────────────── */
 function Sidebar() {
   const pathname = usePathname();
+  const locale = pathname?.split("/")[1] || "fr";
 
   return (
     <aside style={{
@@ -149,62 +141,116 @@ function Sidebar() {
       borderRight: "1px solid var(--border-default)",
       flexShrink: 0,
       overflowY: "auto",
-      padding: "24px 0 20px",
+      padding: "0 0 20px",
+      display: "flex",
+      flexDirection: "column",
     }}>
+      {/* Wordmark */}
+      <Link href="/" style={{
+        fontFamily: "var(--font)",
+        fontSize: "29px",
+        fontWeight: 700,
+        letterSpacing: "-0.7px",
+        lineHeight: 0.9,
+        textDecoration: "none",
+        padding: "28px 20px 32px",
+        display: "block",
+        flexShrink: 0,
+      }}>
+        <span style={{ display: "block", color: "var(--text-primary)" }}>Wander</span>
+        <span style={{ display: "block", color: "var(--blue-primary)" }}>Mind</span>
+      </Link>
       {NAV.map((section, si) => (
         <div key={si}>
           {si > 0 && (
-            <div style={{ margin: "12px 14px", height: "1px", background: "var(--border-default)" }} />
+            <div style={{ margin: "16px 14px", height: "1px", background: "var(--border-default)" }} />
           )}
 
           {/* Section group label */}
           <div style={{
-            fontSize: "10px",
+            fontSize: "12px",
             fontWeight: 700,
             color: "var(--text-tertiary)",
             letterSpacing: "0.1em",
             textTransform: "uppercase",
-            padding: "0 16px",
-            marginBottom: "2px",
+            padding: "0 20px",
+            marginBottom: "6px",
           }}>
             {section.label}
           </div>
 
           {section.items.map(item => {
-            const isActive = pathname === item.href || pathname?.startsWith(item.href + "/");
+            const localizedHref = `/${locale}${item.href}`;
+            const hasSubItems = item.subItems && item.subItems.length > 0;
+
+            // parent is "active" if any sub-item matches (or no sub-items and direct match)
+            const isParentActive = hasSubItems
+              ? item.subItems!.some(s => {
+                  const sh = `/${locale}${s.href}`;
+                  return pathname === sh || pathname?.startsWith(sh + "/");
+                })
+              : pathname === localizedHref || pathname?.startsWith(localizedHref + "/");
+
             return (
-              <Link key={item.href} href={item.href} style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "9px",
-                padding: "8px 16px 8px 14px",
-                borderLeft: `2px solid ${isActive ? "var(--blue-primary)" : "transparent"}`,
-                background: isActive ? "var(--surface-active)" : "transparent",
-                textDecoration: "none",
-                transition: `background var(--motion-micro)`,
-              }}
-              onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "var(--surface-hover)"; }}
-              onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.background = "transparent"; }}>
-                {/* Dot */}
-                <div style={{
-                  width: "5px",
-                  height: "5px",
-                  borderRadius: "50%",
-                  background: isActive ? "var(--blue-primary)" : "rgba(0,0,0,0.2)",
-                  flexShrink: 0,
+              <div key={item.href}>
+                <Link href={localizedHref} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 20px 10px 18px",
+                  borderLeft: `2px solid ${isParentActive && !hasSubItems ? "var(--blue-primary)" : "transparent"}`,
+                  background: isParentActive && !hasSubItems ? "var(--surface-active)" : "transparent",
+                  textDecoration: "none",
                   transition: `background var(--motion-micro)`,
-                }} />
-                {/* Label */}
-                <span style={{
-                  fontSize: "12.5px",
-                  lineHeight: "1.3",
-                  color: isActive ? "var(--blue-primary)" : "var(--text-secondary)",
-                  fontWeight: isActive ? 500 : 400,
-                  transition: `color var(--motion-micro)`,
-                }}>
-                  {item.label}
-                </span>
-              </Link>
+                }}
+                onMouseEnter={e => { if (!isParentActive || hasSubItems) (e.currentTarget as HTMLElement).style.background = "var(--surface-hover)"; }}
+                onMouseLeave={e => { if (!isParentActive || hasSubItems) (e.currentTarget as HTMLElement).style.background = "transparent"; }}>
+                  <div style={{
+                    width: "5px", height: "5px", borderRadius: "50%",
+                    background: isParentActive ? "var(--blue-primary)" : "rgba(0,0,0,0.2)",
+                    flexShrink: 0,
+                    transition: `background var(--motion-micro)`,
+                  }} />
+                  <span style={{
+                    fontSize: "15px", lineHeight: "1.35",
+                    color: isParentActive ? "var(--blue-primary)" : "var(--text-secondary)",
+                    fontWeight: isParentActive ? 600 : 400,
+                    transition: `color var(--motion-micro)`,
+                  }}>
+                    {item.label}
+                  </span>
+                </Link>
+
+                {/* Sub-items — shown when parent is active */}
+                {hasSubItems && isParentActive && (
+                  <div style={{ borderLeft: "1px solid var(--border-default)", margin: "2px 0 6px 30px" }}>
+                    {item.subItems!.map(sub => {
+                      const sh = `/${locale}${sub.href}`;
+                      const isSubActive = pathname === sh || pathname?.startsWith(sh + "/");
+                      return (
+                        <Link key={sub.href} href={sh} style={{
+                          display: "block",
+                          padding: "7px 14px",
+                          textDecoration: "none",
+                          borderRadius: "0 6px 6px 0",
+                          background: isSubActive ? "var(--surface-active)" : "transparent",
+                          transition: `background var(--motion-micro)`,
+                        }}
+                        onMouseEnter={e => { if (!isSubActive) (e.currentTarget as HTMLElement).style.background = "var(--surface-hover)"; }}
+                        onMouseLeave={e => { if (!isSubActive) (e.currentTarget as HTMLElement).style.background = "transparent"; }}>
+                          <span style={{
+                            fontSize: "13.5px", lineHeight: "1.35",
+                            color: isSubActive ? "var(--blue-primary)" : "var(--text-secondary)",
+                            fontWeight: isSubActive ? 600 : 400,
+                          }}>
+                            {sub.label}
+                          </span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </div>
@@ -218,19 +264,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div style={{
       display: "flex",
-      flexDirection: "column",
       minHeight: "100dvh",
       background: "var(--surface-page)",
       color: "var(--text-primary)",
       fontFamily: "var(--font)",
     }}>
-      <TopNav />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Sidebar />
-        <main style={{ flex: 1, background: "var(--surface-page)", overflowY: "auto" }}>
-          {children}
-        </main>
-      </div>
+      <Sidebar />
+      <main style={{ flex: 1, background: "var(--surface-page)", overflowY: "auto" }}>
+        {children}
+      </main>
+      <FloatingControls />
     </div>
   );
 }

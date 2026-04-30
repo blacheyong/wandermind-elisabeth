@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "source": "Foundations BYCo — Figma MCP extraction, 2026-04-28",
+    "fileKey": "bFV4lUCM2DDq6Gy84cSmEw",
+    "confirmed": ["--byco-blue-500", "--keyline-light", "--text-body-inverse"],
+    "deviations": "see BRAND_DEVIATIONS.md"
+  },
+  "primitives": {
+    "blue": {
+      "50":  "#eef0ff",
+      "100": "#dce0ff",
+      "500": "#2d39f7",
+      "600": "#1f2ad9",
+      "700": "#1620b5"
+    },
+    "grey": {
+      "50":  "#f8f8f8",
+      "100": "#f0f0f0",
+      "200": "#e5e5e5",
+      "300": "#d0d0d0",
+      "400": "#a3a3a3",
+      "500": "#737373",
+      "700": "#404040",
+      "900": "#1a1a1a"
+    },
+    "black": "#0a0a0a",
+    "white": "#ffffff",
+    "error":   "#dc2626",
+    "warning": "#d97706",
+    "success": "#16a34a"
+  },
+  "mapped": {
+    "surfaces": {
+      "base":         "#ffffff",
+      "elevated":     "#f8f8f8",
+      "secondary":    "#f0f0f0",
+      "action":       "#2d39f7",
+      "actionHover":  "#1f2ad9",
+      "black":        "#0a0a0a",
+      "disabled":     "#f0f0f0",
+      "error":        "#fef2f2",
+      "warning":      "#fffbeb",
+      "success":      "#f0fdf4",
+      "info":         "#eff1ff"
+    },
+    "text": {
+      "primary":      "#1a1a1a",
+      "header":       "#0a0a0a",
+      "secondary":    "#737373",
+      "muted":        "#a3a3a3",
+      "accent":       "#2d39f7",
+      "action":       "#2d39f7",
+      "onAction":     "#ffffff",
+      "inverse":      "rgba(255,255,255,0.85)",
+      "bodyInverse":  "rgba(255,255,255,0.7)",
+      "disabled":     "#a3a3a3",
+      "error":        "#dc2626",
+      "warning":      "#d97706",
+      "success":      "#16a34a"
+    },
+    "borders": {
+      "default":      "#e5e5e5",
+      "subtle":       "#f0f0f0",
+      "strong":       "#d0d0d0",
+      "action":       "#2d39f7",
+      "error":        "#dc2626",
+      "success":      "#16a34a",
+      "warning":      "#d97706"
+    },
+    "keylines": {
+      "dark":  "rgba(0,0,0,0.1)",
+      "light": "rgba(255,255,255,0.5)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "sans":    "Inter (substitute for SegmentAlt — see BRAND_DEVIATIONS.md)",
+      "display": "Inter",
+      "mono":    "JetBrains Mono"
+    },
+    "fontWeight": {
+      "regular": 400,
+      "medium":  500,
+      "bold":    700
+    },
+    "scale": {
+      "xs":   "12px",
+      "sm":   "14px",
+      "base": "16px",
+      "md":   "18px",
+      "lg":   "20px",
+      "xl":   "24px",
+      "2xl":  "28px",
+      "3xl":  "32px",
+      "4xl":  "40px",
+      "5xl":  "48px",
+      "6xl":  "64px",
+      "7xl":  "84px"
+    },
+    "leading": {
+      "tight":   1.1,
+      "snug":    1.25,
+      "normal":  1.5,
+      "relaxed": 1.65
+    },
+    "tracking": {
+      "tight":  "-0.02em",
+      "normal": "0em",
+      "wide":   "0.04em"
+    }
+  },
+  "radius": {
+    "none": "0px",
+    "sm":   "2px",
+    "md":   "4px",
+    "lg":   "8px",
+    "xl":   "12px",
+    "2xl":  "20px",
+    "full": "9999px"
+  },
+  "motion": {
+    "duration": {
+      "fast":   "100ms",
+      "base":   "200ms",
+      "slow":   "350ms"
+    },
+    "easing": {
+      "standard":   "cubic-bezier(0.4, 0, 0.2, 1)",
+      "emphasized": "cubic-bezier(0.2, 0, 0, 1)"
+    }
+  }
+}

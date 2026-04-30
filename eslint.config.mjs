@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "public/byc-2.0-master/**",
+    "AppShell.tsx",
+    "OnboardingLayout.tsx",
+    "globals.css",
+    "tokens.css",
   ]),
 ]);
 

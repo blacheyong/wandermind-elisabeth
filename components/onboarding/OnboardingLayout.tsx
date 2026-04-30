@@ -168,7 +168,7 @@ export default function OnboardingLayout({
             fontSize: "var(--text-title-size)",
             lineHeight: "var(--text-title-lh)",
             letterSpacing: "var(--text-title-ls)",
-            fontWeight: "var(--text-title-weight)" as any,
+            fontWeight: "var(--text-title-weight)",
             color: "var(--color-text-primary)",
             margin: 0,
           }}
