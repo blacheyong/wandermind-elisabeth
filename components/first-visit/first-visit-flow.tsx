@@ -275,7 +275,7 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
         className="flex min-h-dvh transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{ transform: `translateX(-${step * 100}vw)` }}
       >
-        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-8 pt-28 sm:px-8 lg:px-10 lg:pb-10">
+        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-24 pt-28 sm:px-8 sm:pb-28 lg:px-10 lg:pb-32">
           <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-end">
             <div className="max-w-5xl">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-text-secondary">
@@ -293,15 +293,12 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
                 <Button size="lg" onClick={() => setStep(1)}>
                   {t.heroPrimary}
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => setStep(1)}>
-                  {t.heroSecondary}
-                </Button>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-8 pt-28 sm:px-8 lg:px-10 lg:pb-10">
+        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-24 pt-28 sm:px-8 sm:pb-28 lg:px-10 lg:pb-32">
           <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(360px,0.48fr)] lg:items-end">
             <div className="max-w-5xl">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-white/55">
@@ -333,9 +330,9 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
           </div>
         </section>
 
-        <section className="min-h-dvh w-screen shrink-0 px-5 pb-8 pt-28 sm:px-8 lg:px-10 lg:pb-10">
-          <div className="grid min-h-[calc(100dvh-9.5rem)] gap-8 lg:grid-cols-[minmax(320px,0.52fr)_minmax(0,1fr)] lg:items-end">
-            <div className="self-start lg:self-end">
+        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-24 pt-28 sm:px-8 sm:pb-28 lg:px-10 lg:pb-32">
+          <div className="grid w-full gap-8 lg:grid-cols-[minmax(320px,0.52fr)_minmax(0,1fr)] lg:items-end">
+            <div className="lg:self-end">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-text-secondary">
                 02 / {t.steps[1]}
               </p>
@@ -343,7 +340,7 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
                 {t.preferenceTitle}
               </h2>
             </div>
-            <div className="grid gap-6">
+            <div className="grid gap-6 lg:self-end">
               <ChoiceGroup label={t.paceLabel} rows={t.pace} value={pace} onChange={setPace} />
               <ChoiceGroup label={t.discoveryLabel} rows={t.discovery} value={discovery} onChange={setDiscovery} />
               <ChoiceGroup label={t.structureLabel} rows={t.structure} value={structure} onChange={setStructure} />
@@ -356,9 +353,9 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
           </div>
         </section>
 
-        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-8 pt-28 sm:px-8 lg:px-10 lg:pb-10">
+        <section className="flex min-h-dvh w-screen shrink-0 items-end px-5 pb-24 pt-28 sm:px-8 sm:pb-28 lg:px-10 lg:pb-32">
           <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(360px,0.58fr)] lg:items-end">
-            <div>
+            <div className="lg:self-end">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-text-secondary">
                 03 / {t.steps[2]}
               </p>
@@ -369,7 +366,7 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
                 {t.limitsText}
               </p>
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 lg:self-end">
               <div className="flex flex-wrap gap-3">
                 {t.limits.map((item) => {
                   const selected = avoid.includes(item);
@@ -398,9 +395,9 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
           </div>
         </section>
 
-        <section className="min-h-dvh w-screen shrink-0 bg-accent-primary px-5 pb-8 pt-28 text-white sm:px-8 lg:px-10 lg:pb-10">
-          <div className="grid min-h-[calc(100dvh-9.5rem)] gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(340px,0.48fr)] lg:items-end">
-            <div>
+        <section className="flex min-h-dvh w-screen shrink-0 items-end bg-accent-primary px-5 pb-24 pt-28 text-white sm:px-8 sm:pb-28 lg:px-10 lg:pb-32">
+          <div className="grid w-full gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(340px,0.48fr)] lg:items-end">
+            <div className="lg:self-end">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-white/55">
                 04 / {t.steps[3]}
               </p>
@@ -408,7 +405,7 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
                 {t.loginTitle}
               </h2>
             </div>
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 lg:self-end">
               <p className="text-xl leading-[1.35] text-white/75 sm:text-2xl">
                 {t.loginText}
               </p>
