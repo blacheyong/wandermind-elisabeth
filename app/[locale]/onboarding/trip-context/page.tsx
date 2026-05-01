@@ -14,7 +14,6 @@ export default async function TripContextPage({ params }: { params: Params }) {
     <TripContextForm
       t={d.onboarding.tripContext}
       continueLabel={d.actions.continue}
-      backHref={`/${locale}/onboarding/review`}
       locale={locale}
     />
   )

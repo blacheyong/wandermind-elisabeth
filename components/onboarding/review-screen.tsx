@@ -82,6 +82,7 @@ export default function ReviewScreen({ t, editLabel, editAnswersLabel, locale, g
   }
 
   const summaryRows: Array<{ key: keyof typeof t.sections; value: string | null }> = [
+    { key: "tripName", value: draft.tripName ?? null },
     { key: "whoWhere", value: summary.whoWhere },
     { key: "budgetReason", value: summary.budgetReason },
     { key: "nonNegotiables", value: summary.nonNegotiables },
@@ -115,7 +116,7 @@ export default function ReviewScreen({ t, editLabel, editAnswersLabel, locale, g
                 <CardAction>
                   <Link
                     href={`/${locale}/onboarding/${
-                      key === "whoWhere" || key === "budgetReason" ? "trip-context"
+                      key === "tripName" || key === "whoWhere" || key === "budgetReason" ? "trip-context"
                       : key === "preferences" ? "tradeoffs"
                       : key === "nonNegotiables" || key === "pace" || key === "nuance" ? "constraints"
                       : "trip-context"

@@ -1,10 +1,9 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { useState } from "react"
 import { useTripDraft } from "@/lib/contexts/trip-draft-context"
 
-const STEP_SLUGS = ["review", "constraints", "tradeoffs", "trip-context"] as const
+const STEP_SLUGS = ["constraints", "tradeoffs", "trip-context", "review"] as const
 
 function getActiveIndex(pathname: string): number {
   for (let i = STEP_SLUGS.length - 1; i >= 0; i--) {
@@ -54,16 +53,19 @@ function AbstractShape() {
 
 type Props = {
   stepLabels: [string, string, string, string]
-  locale: string
 }
 
-export default function OnboardingHero({ stepLabels, locale }: Props) {
+export default function OnboardingHero({ stepLabels }: Props) {
   const pathname = usePathname()
   const activeIndex = getActiveIndex(pathname)
 
-  const { draft, setDraft } = useTripDraft()
-  const defaultName = locale === "fr" ? "Voyage de cet été" : "Summer trip"
-  const [tripName, setTripName] = useState(draft.tripName ?? defaultName)
+  const { draft } = useTripDraft()
+  const displayLabel = stepLabels[activeIndex].includes(" — ")
+    ? stepLabels[activeIndex].split(" — ")[1]
+    : stepLabels[activeIndex]
+  const title = STEP_SLUGS[activeIndex] === "review" && draft.tripName
+    ? draft.tripName
+    : displayLabel
 
   return (
     <div className="byc-reveal" style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
@@ -99,55 +101,19 @@ export default function OnboardingHero({ stepLabels, locale }: Props) {
 
       {/* Title + illustration */}
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1, minWidth: 0 }} className="group">
-          <input
-            type="text"
-            value={tripName}
-            onChange={(e) => setTripName(e.target.value)}
-            onBlur={() => setDraft({ tripName })}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <h1
             style={{
-              flex: 1,
-              minWidth: 0,
-              background: "transparent",
-              border: "none",
-              borderBottom: "1px solid rgba(255,255,255,0.25)",
-              outline: "none",
               fontFamily: "var(--font)",
               fontSize: "clamp(32px, 4vw, 52px)",
               fontWeight: 700,
               letterSpacing: "-0.03em",
+              lineHeight: 0.95,
               color: "#ffffff",
-              paddingBottom: "4px",
-              transition: "border-color 0.2s",
             }}
-            onFocus={e => {
-              e.currentTarget.style.borderBottom = "2px solid rgba(255,255,255,0.9)"
-            }}
-            onBlurCapture={e => {
-              e.currentTarget.style.borderBottom = "1px solid rgba(255,255,255,0.25)"
-            }}
-            placeholder={defaultName}
-            aria-label="Nom du voyage"
-          />
-          <div style={{
-            flexShrink: 0,
-            width: "32px",
-            height: "32px",
-            borderRadius: "50%",
-            border: "1px solid rgba(255,255,255,0.35)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "rgba(255,255,255,0.5)",
-            transition: "border-color 0.2s, color 0.2s",
-          }}
-          className="group-focus-within:!border-white group-focus-within:!text-white"
           >
-            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9.5 1.5 L11.5 3.5 L4.5 10.5 L2 11 L2.5 8.5 Z" />
-              <path d="M8 3 L10 5" />
-            </svg>
-          </div>
+            {title}
+          </h1>
         </div>
         <AbstractShape />
       </div>

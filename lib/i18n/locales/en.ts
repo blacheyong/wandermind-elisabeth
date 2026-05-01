@@ -3,13 +3,17 @@ import type { Dictionary } from "./fr";
 const en: Dictionary = {
   onboarding: {
     progress: {
-      step1: "01 — Review",
-      step2: "02 — Profile",
-      step3: "03 — Preferences",
-      step4: "04 — The trip",
+      step1: "01 — Profile",
+      step2: "02 — Preferences",
+      step3: "03 — The trip",
+      step4: "04 — Review",
     },
     tripContext: {
       heading: "Your trip",
+      nameLabel: "Trip name",
+      namePlaceholder: "e.g. Lisbon in late summer",
+      nameHelp:
+        "Create the first trip WanderMind will design around your profile.",
       travellersLabel: "Who's travelling?",
       destinationLabel: "Destination",
       destinationKnown: "I know where",
@@ -158,6 +162,7 @@ const en: Dictionary = {
       editPrompt: "Edit anything that doesn't reflect your trip.",
       contradictionWarning: "Some of your choices seem to conflict.",
       sections: {
+        tripName: "Trip",
         whoWhere: "Who & where",
         budgetReason: "Budget & occasion",
         nonNegotiables: "Non-negotiables",

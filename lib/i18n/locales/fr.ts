@@ -1,13 +1,17 @@
 const fr = {
   onboarding: {
     progress: {
-      step1: "01 — Récapitulatif",
-      step2: "02 — Profil",
-      step3: "03 — Préférences",
-      step4: "04 — Le voyage",
+      step1: "01 — Profil",
+      step2: "02 — Préférences",
+      step3: "03 — Le voyage",
+      step4: "04 — Récapitulatif",
     },
     tripContext: {
       heading: "Votre voyage",
+      nameLabel: "Nom du voyage",
+      namePlaceholder: "Ex. : Lisbonne à la fin de l’été",
+      nameHelp:
+        "Créez le premier voyage que WanderMind préparera à partir de votre profil.",
       travellersLabel: "Qui voyage ?",
       destinationLabel: "Destination",
       destinationKnown: "Je sais où",
@@ -161,6 +165,7 @@ const fr = {
       contradictionWarning:
         "Certains de vos choix semblent contradictoires.",
       sections: {
+        tripName: "Voyage",
         whoWhere: "Qui & où",
         budgetReason: "Budget & raison",
         nonNegotiables: "Non-négociables",

@@ -87,7 +87,7 @@ const BUDGET_CATS: BudgetCat[] = ["food", "stay", "experiences", "transport"]
 type Props = {
   t: T
   continueLabel: string
-  backHref: string
+  backHref?: string
   locale: string
 }
 
@@ -96,6 +96,7 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
   const router = useRouter()
 
   const saved = draft.tripContext
+  const [tripName, setTripName] = useState(draft.tripName ?? "")
 
   // Travellers state
   const [adults, setAdults] = useState(saved?.travellers?.adults ?? 1)
@@ -148,8 +149,12 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
       alreadyBooked: alreadyBooked ? alreadyBooked.split("\n").filter(Boolean) : undefined,
       mustSee: mustSee ? mustSee.split("\n").filter(Boolean) : undefined,
     }
-    setDraft({ tripContext })
-  }, [adults, kids, pets, destKnown, destination, region, dates, dailyMax, flexibility, saveOn, splurgeOn, reason, alreadyBooked, mustSee, setDraft])
+    setDraft({
+      tripName: tripName.trim() || undefined,
+      tripContext,
+      currentStep: "trip-context",
+    })
+  }, [adults, kids, pets, destKnown, destination, region, dates, dailyMax, flexibility, saveOn, splurgeOn, reason, alreadyBooked, mustSee, tripName, setDraft])
 
   useEffect(() => { draftSaved() }, [draftSaved])
 
@@ -158,10 +163,11 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
     ? Boolean(dates.start && dates.end && dates.start <= dates.end)
     : Boolean(dates.season && dates.lengthDays >= 1)
   const destValid = destKnown ? destination.trim().length > 0 : region.trim().length > 0
-  const isValid = datesValid && destValid
+  const isValid = tripName.trim().length > 0 && datesValid && destValid
 
   function handleContinue() {
     draftSaved()
+    setDraft({ currentStep: "review" })
     router.push(`/${locale}/onboarding/review`)
   }
 
@@ -172,6 +178,22 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
   return (
     <div className="flex flex-col gap-12">
 
+      <FieldGroup>
+        <div className="flex flex-col gap-3">
+          <FieldLabel>{t.nameLabel}</FieldLabel>
+          <Input
+            value={tripName}
+            onChange={(e) => setTripName(e.target.value)}
+            placeholder={t.namePlaceholder}
+            className="h-auto pb-3 text-[clamp(36px,7vw,72px)] font-bold leading-[0.95] tracking-[-0.04em] text-text-header placeholder:text-text-muted"
+          />
+          <p className="max-w-xl text-xl leading-[1.35] text-text-secondary">
+            {t.nameHelp}
+          </p>
+        </div>
+      </FieldGroup>
+
+      <hr className="border-border-subtle" />
 
       {/* Travellers */}
       <FieldGroup>

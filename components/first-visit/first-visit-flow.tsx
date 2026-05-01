@@ -78,8 +78,8 @@ const copy = {
       "Votre profil de voyage sera sauvegardé avant les détails du prochain voyage. Ensuite, WanderMind pourra adapter chaque suggestion.",
     emailLabel: "Courriel",
     emailPlaceholder: "vous@exemple.com",
-    loginPrimary: "Continuer vers mon profil de voyage",
-    skip: "Continuer sans compte",
+    loginPrimary: "Créer mon premier voyage",
+    skip: "Continuer au voyage",
     summary: "Profil initial",
   },
   en: {
@@ -139,8 +139,8 @@ const copy = {
       "Your traveller profile will be saved before the details of the next trip. Then WanderMind can adapt every suggestion.",
     emailLabel: "Email",
     emailPlaceholder: "you@example.com",
-    loginPrimary: "Continue to my travel profile",
-    skip: "Continue without an account",
+    loginPrimary: "Create my first trip",
+    skip: "Continue to the trip",
     summary: "Initial profile",
   },
 } as const;
