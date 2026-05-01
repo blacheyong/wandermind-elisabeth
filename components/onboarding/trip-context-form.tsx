@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { RefreshCw } from "lucide-react"
 import { useTripDraft } from "@/lib/contexts/trip-draft-context"
 import { Slider } from "@/components/ui/slider"
 import { Input } from "@/components/ui/input"
@@ -106,7 +107,11 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
   // Destination
   const [destKnown, setDestKnown] = useState(saved?.destinationKnown ?? true)
   const [destination, setDestination] = useState(saved?.destination ?? "")
-  const [region, setRegion] = useState(saved?.preferenceRegion ?? "")
+  const [suggestionIndex, setSuggestionIndex] = useState(() => {
+    const index = t.destinationSuggestions.findIndex((item) => item === saved?.preferenceRegion)
+    return index >= 0 ? index : 0
+  })
+  const suggestedDestination = t.destinationSuggestions[suggestionIndex] ?? t.destinationSuggestions[0] ?? ""
 
   // Dates
   const [dates, setDates] = useState<LocalDates>(
@@ -135,7 +140,7 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
       travellers: { adults, kids: kids.length ? kids : undefined, pets: pets || undefined },
       destinationKnown: destKnown,
       destination: destKnown ? destination : undefined,
-      preferenceRegion: !destKnown ? region : undefined,
+      preferenceRegion: !destKnown ? suggestedDestination : undefined,
       dates: dates.mode === "exact"
         ? { start: dates.start, end: dates.end }
         : { season: dates.season, lengthDays: dates.lengthDays },
@@ -154,7 +159,7 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
       tripContext,
       currentStep: "trip-context",
     })
-  }, [adults, kids, pets, destKnown, destination, region, dates, dailyMax, flexibility, saveOn, splurgeOn, reason, alreadyBooked, mustSee, tripName, setDraft])
+  }, [adults, kids, pets, destKnown, destination, suggestedDestination, dates, dailyMax, flexibility, saveOn, splurgeOn, reason, alreadyBooked, mustSee, tripName, setDraft])
 
   useEffect(() => { draftSaved() }, [draftSaved])
 
@@ -162,8 +167,20 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
   const datesValid = dates.mode === "exact"
     ? Boolean(dates.start && dates.end && dates.start <= dates.end)
     : Boolean(dates.season && dates.lengthDays >= 1)
-  const destValid = destKnown ? destination.trim().length > 0 : region.trim().length > 0
+  const destValid = destKnown ? destination.trim().length > 0 : suggestedDestination.length > 0
   const isValid = tripName.trim().length > 0 && datesValid && destValid
+
+  function randomizeSuggestion() {
+    setSuggestionIndex((current) => {
+      if (t.destinationSuggestions.length <= 1) return current
+
+      let next = current
+      while (next === current) {
+        next = Math.floor(Math.random() * t.destinationSuggestions.length)
+      }
+      return next
+    })
+  }
 
   function handleContinue() {
     draftSaved()
@@ -301,11 +318,20 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
             onChange={(e) => setDestination(e.target.value)}
           />
         ) : (
-          <Input
-            placeholder="Ex. : Europe du Sud, Asie du Sud-Est…"
-            value={region}
-            onChange={(e) => setRegion(e.target.value)}
-          />
+          <div className="flex items-center justify-between gap-4 border-b border-[var(--byco-grey-500)] pb-4 pt-2">
+            <p className="min-w-0 flex-1 text-[clamp(30px,5vw,54px)] font-bold leading-[0.95] tracking-[-0.04em] text-text-header">
+              {suggestedDestination}
+            </p>
+            <button
+              type="button"
+              onClick={randomizeSuggestion}
+              aria-label={t.destinationRandomize}
+              title={t.destinationRandomize}
+              className="inline-flex size-12 shrink-0 items-center justify-center rounded-[16px] border border-[var(--byco-grey-500)] text-text-primary transition-colors hover:border-accent-primary hover:text-accent-primary focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              <RefreshCw className="size-5" aria-hidden="true" />
+            </button>
+          </div>
         )}
       </FieldGroup>
 
