@@ -9,11 +9,5 @@ node_modules/
 /globals.css
 /tokens.css
 
-# local brand reference kit: keep only the Segment webfonts used by the app
+# local brand reference kit
 /public/byc-2.0-master/*
-!/public/byc-2.0-master/src/
-/public/byc-2.0-master/src/*
-!/public/byc-2.0-master/src/fonts/
-/public/byc-2.0-master/src/fonts/*
-!/public/byc-2.0-master/src/fonts/segment-*.woff
-!/public/byc-2.0-master/src/fonts/segment-*.woff2

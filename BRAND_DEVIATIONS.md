@@ -8,7 +8,7 @@ Deviations from the BYCo Figma Foundations. All items must be confirmed or corre
 
 **Status:** ✅ RESOLVED (2026-04-29)
 
-**Resolution:** SegmentAlt WOFF2 files were already present in the BYCo kit at `public/byc-2.0-master/src/fonts/segment-{regular,medium,semibold,bold}.woff2`. Updated `app/styles/tokens.css` `@font-face` declarations to point to these files, and updated `--font-sans` in `app/globals.css` to use SegmentAlt. Inter has been removed from `app/layout.tsx`. All 4 weights load with HTTP 200.
+**Resolution:** SegmentAlt OTF files are served from `public/fonts/SegmentAlt/SegmentAlt-{Regular,Medium,SemiBold,Bold}.otf`. Updated `app/styles/tokens.css` `@font-face` declarations to point to these files, and updated `--font-sans` in `app/globals.css` to use SegmentAlt. Inter has been removed from `app/layout.tsx`. All 4 weights load with HTTP 200.
 
 ---
 
