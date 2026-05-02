@@ -446,13 +446,6 @@ export default function FirstVisitFlow({ locale, lang }: Props) {
                 >
                   {t.loginPrimary}
                 </Button>
-                <button
-                  type="button"
-                  onClick={persistAndContinue}
-                  className="text-left text-base font-semibold text-white/70 transition-colors hover:text-white"
-                >
-                  {t.skip}
-                </button>
               </form>
             </div>
           </div>

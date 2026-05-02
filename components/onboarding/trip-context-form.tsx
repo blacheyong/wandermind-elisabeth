@@ -105,7 +105,7 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
   const [pets, setPets] = useState(saved?.travellers?.pets ?? 0)
 
   // Destination
-  const [destKnown, setDestKnown] = useState(saved?.destinationKnown ?? true)
+  const [destKnown, setDestKnown] = useState(saved?.destinationKnown ?? false)
   const [destination, setDestination] = useState(saved?.destination ?? "")
   const [suggestionIndex, setSuggestionIndex] = useState(() => {
     const index = t.destinationSuggestions.findIndex((item) => item === saved?.preferenceRegion)
@@ -401,9 +401,11 @@ export default function TripContextForm({ t, continueLabel, backHref, locale }: 
       {/* Budget */}
       <FieldGroup>
         <FieldLabel>{t.budgetLabel}</FieldLabel>
-        <div className="flex justify-between text-xs text-text-secondary">
+        <div className="flex items-end justify-between gap-3 text-[clamp(22px,4vw,34px)] font-bold leading-none tracking-[-0.03em] text-text-header">
           <span>50 $ CAD</span>
-          <span className="font-medium text-text-primary">{formatBudget(dailyMax, locale)}</span>
+          <span className="text-[clamp(30px,5vw,52px)] text-accent-primary">
+            {formatBudget(dailyMax, locale)}
+          </span>
           <span>1 000 $ CAD</span>
         </div>
         <Slider
