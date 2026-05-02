@@ -11,7 +11,7 @@ const en: Dictionary = {
     tripContext: {
       heading: "Your trip",
       nameLabel: "Trip name",
-      namePlaceholder: "e.g. Lisbon in late summer",
+      namePlaceholder: "e.g. Iceland roadtrip",
       nameHelp:
         "Create the first trip WanderMind will design around your profile.",
       travellersLabel: "Who's travelling?",

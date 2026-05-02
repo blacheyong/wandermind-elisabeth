@@ -9,7 +9,7 @@ const fr = {
     tripContext: {
       heading: "Votre voyage",
       nameLabel: "Nom du voyage",
-      namePlaceholder: "Ex. : Lisbonne à la fin de l’été",
+      namePlaceholder: "Ex. : roadtrip en Islande",
       nameHelp:
         "Créez le premier voyage que WanderMind préparera à partir de votre profil.",
       travellersLabel: "Qui voyage ?",
