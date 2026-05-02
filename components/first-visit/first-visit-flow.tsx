@@ -60,7 +60,7 @@ const copy = {
       ["fluid", "Souple", "Une direction, pas un horaire rigide."],
       ["open", "Ouvert", "Des temps libres qui comptent vraiment."],
     ],
-    limitsTitle: "Ce que WanderMind doit respecter",
+    limitsTitle: "Ce que WanderMind doit éviter",
     limitsText:
       "Ces réponses deviennent des garde-fous. Elles empêchent les suggestions jolies mais inutiles.",
     limits: [
@@ -121,7 +121,7 @@ const copy = {
       ["fluid", "Flexible", "A direction, not a rigid schedule."],
       ["open", "Open", "Free time that actually matters."],
     ],
-    limitsTitle: "What WanderMind should respect",
+    limitsTitle: "What WanderMind should avoid",
     limitsText:
       "These answers become guardrails. They prevent suggestions that look good but are useless to you.",
     limits: [
